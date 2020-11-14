@@ -1,0 +1,130 @@
+set foldmethod=syntax
+set number "Turns on number lettering
+set relativenumber  "This turns on relative numbering
+set numberwidth=2       "Set the line numbers to 2 spaces
+set tabstop=2 softtabstop=2
+syntax enable
+
+set nocompatible                " choose no compatibility with legacy vi
+set encoding=utf-8
+set showcmd                     " display incomplete commands
+filetype plugin indent on       " load file type plugins + indentation
+
+set smartindent             " Indent according to previous line.
+set expandtab              " Use spaces instead of tabs.
+set shiftround             " >> indents to next multiple of 'shiftwidth'.
+
+set hidden                 " Switch between buffers without having to save first.
+set laststatus  =2         "Always show statusline.
+set display     =lastline  " Show as much as possible of the last line.
+
+set showmode               " Show current mode in command-line.
+set showcmd                " Show already typed keys when more are expected.
+
+set incsearch              " Highlight while searching with / or ?.
+set hlsearch               " Keep matches highlighted.
+
+set ttyfast                " Faster redrawing.
+set lazyredraw             " Only redraw when necessary.
+
+set splitbelow             " Open new windows below the current window.
+set splitright             " Open new windows right of the current window.
+
+set wrapscan               " Searches wrap around end-of-file.
+set report      =0         " Always report changed lines.
+set synmaxcol   =200       " Only highlight the first 200 columns.
+
+"" Whitespace
+set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
+set expandtab                   " use spaces, not tabs (optional)
+set backspace=indent,eol,start  " backspace through everything in insert mode
+
+"" Searching
+set hlsearch                    " highlight matches
+set incsearch                   " incremental searching
+set ignorecase                  " searches are case insensitive...
+set smartcase                   " ... unless they contain at least one capital letter
+
+"" Other
+set noerrorbells
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+set incsearch
+
+call plug#begin()
+Plug 'vim-scripts/The-NERD-tree'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-scripts/dbext.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'SirVer/ultisnips'
+Plug 'ervandew/supertab'
+Plug 'chriskempson/base16-vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'mdempsky/gocode'
+Plug 'plasticboy/vim-markdown'
+Plug 'Valloric/YouCompleteMe'
+" Plug 'coc.vim'
+Plug 'hashivim/vim-terraform'
+Plug 'arcticicestudio/nord-vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
+colorscheme codeschool
+
+"Restore cursor position when opening file
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+" vim-plug setup
+" Specify vim-plug directory for the plugins
+"
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" Nerd Tree config
+nmap <silent> <C-N> :NERDTreeToggle<CR>
+imap <silent> <C-N> :NERDTreeToggle<CR>
+
+" Go
+let g:go_list_type = 'quickfix'
+let g:go_fmt_command = 'goimports'
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_metalinter_autosave = 1
+set autowrite
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+let g:go_auto_type_info = 1
+let g:go_highlight_structs = 0
+let g:go_highlight_interfaces = 0
+let g:go_highlight_operators = 0
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_build_constraints = 1
+
+" Fold functions
+set foldmethod=syntax
+set foldlevel=1
+set foldlevelstart=20
+
+" Synchronize the clipboard register and the default register
+set clipboard^=unnamed
